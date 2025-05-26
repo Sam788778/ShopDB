@@ -1,0 +1,5 @@
+.home {
+  padding: 2rem;
+  flex: 1;
+  background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+}
