@@ -29,30 +29,10 @@
   transform: scale(1.05);
 }
 
-.slick-prev:before,
-.slick-next:before {
-  color: #fff;
-  font-size: 40px;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
 
-.slick-dots li button:before {
-  font-size: 12px;
-  color: white;
-  opacity: 0.75;
-}
-
-.slick-dots li.slick-active button:before {
-  color: #fff;
-  opacity: 1;
-}
-
-.slick-prev {
-  left: 20px !important;
-  z-index: 2;
-}
-
-.slick-next {
-  right: 20px !important;
-  z-index: 2;
+.slick-prev::before,
+.slick-next::before {
+  content: '';
+  font-size: 30px;
+  color: black;
 }

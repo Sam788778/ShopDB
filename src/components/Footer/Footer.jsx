@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div className={styles.footer}>
       <div className={styles.footerContent}>
-        <p>© 2025 Your Company. All rights reserved.</p>
+        <p>© 2025 Your Company. All righats reserved.</p>
         <ul className={styles.footerLinks}>
           <li><a href="#">Privacy Policy</a></li>
           <li><a href="#">Terms of Service</a></li>

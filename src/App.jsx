@@ -16,14 +16,33 @@ function App() {
       .catch(error => console.error('Error fetching products:', error));
   }, []);
 
-  const addToCart = (product) => { setCart([...cart, product]); };
+  const add = (item) => {
+    const existingItem = cart.find(cartItem => cartItem.id === item.id);
+    if (existingItem) {
+      setCart(cart.map(cartItem =>
+        cartItem.id === item.id ? { ...cartItem, quantity: (cartItem.quantity || 1) + 1 } : cartItem
+      ));
+    } else {
+      setCart([...cart, { ...item, quantity: 1 }]);
+    }
+  }
+  const remove = (item) => {
+    const existingItem = cart.find(cartItem => cartItem.id === item.id);
+    if (existingItem && existingItem.quantity > 1) {
+      setCart(cart.map(cartItem =>
+        cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
+      ));
+    } else {
+      setCart(cart.filter(cartItem => cartItem.id !== item.id));
+    }
+  };
 
   return (
     <Routes>
       <Route path="/" element={<Layout cart={cart} />}>
-        <Route index element={<Home products={products} addToCart={addToCart} />} />
-        <Route path="/product/:id" element={<Product products={products} addToCart={addToCart} />} />
-        <Route path="/cart" element={<Cart cart={cart} />} />
+        <Route index element={<Home products={products} addToCart={add} />} />
+        <Route path="/product/:id" element={<Product products={products} addToCart={add} />} />
+        <Route path="/cart" element={<Cart cart={cart} add={add} remove={remove} />} />
       </Route>
     </Routes>
   );
