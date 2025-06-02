@@ -2,9 +2,9 @@ import styles from './Nav.module.css';
 import { NavLink } from 'react-router-dom';
 import React, { forwardRef } from 'react';
 
-const Nav = forwardRef(({ cart, currentUser }, ref) => {
+const Nav = ({currentUser }) => {
   return (
-    <div className={styles.nav} ref={ref}>
+    <div className={styles.nav}>
       <div>
         <img src='https://miro.medium.com/v2/resize:fit:800/1*fTYr1YT7akBlMMHhQDT_Bg.png' alt="Logo" />
       </div>
@@ -21,6 +21,6 @@ const Nav = forwardRef(({ cart, currentUser }, ref) => {
       </div>
     </div>
   );
-});
+};
 
 export default Nav;
