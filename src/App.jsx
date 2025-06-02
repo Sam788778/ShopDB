@@ -11,14 +11,10 @@ import Register from './pages/Register/Register.jsx';
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [users, setUsers] = useState(() => {
-    const storedUsers = localStorage.getItem('users');
-    return storedUsers
-      ? JSON.parse(storedUsers)
-      : [
-          { id: 1, name: 'John', email: 'john@gmail.com', password: '1234' },
-          { id: 2, name: 'Jane', email: 'jane@gmail.com', password: '1234' },
-        ];
+  const [users, setUsers] = useState([]);
+  const [currentUser, setCurrentUser] = useState(() => {
+    const stored = localStorage.getItem('currentUser');
+    return stored ? JSON.parse(stored) : null;
   });
 
   const [cart, setCart] = useState(() => {
@@ -27,19 +23,15 @@ function App() {
   });
 
   useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
     fetch('https://fakestoreapi.com/products')
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(error => console.error('Error fetching products:', error));
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
-
-  useEffect(() => {
-    localStorage.setItem('users', JSON.stringify(users));
-  }, [users]);
 
   const add = (item) => {
     const existingItem = cart.find(cartItem => cartItem.id === item.id);
@@ -63,14 +55,25 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    const storedUsers = localStorage.getItem('users');
+    if (storedUsers) {
+      setUsers(JSON.parse(storedUsers));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('users', JSON.stringify(users));
+  }, [users]);
+
   return (
     <Routes>
-      <Route path="/" element={<Layout cart={cart} />}>
+      <Route path="/" element={<Layout cart={cart} currentUser={currentUser} />}>
         <Route index element={<Home products={products} addToCart={add} />} />
         <Route path="/product/:id" element={<Product products={products} addToCart={add} />} />
         <Route path="/cart" element={<Cart cart={cart} add={add} remove={remove} />} />
-        <Route path="/login" element={<Login users={users} />} />
-        <Route path="/register" element={<Register setUsers={setUsers} />} />
+        <Route path="/login" element={<Login users={users} setCurrentUser={setCurrentUser} />} />
+        <Route path="/register" element={<Register setUsers={setUsers} setCurrentUser={setCurrentUser} />} />
         <Route path="/profile/:id" element={<Profile />} />
       </Route>
     </Routes>

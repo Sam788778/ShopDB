@@ -1,21 +1,16 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import styles from './Login.module.css';
+import { Field, Formik, Form } from 'formik';
 import { useNavigate } from 'react-router-dom';
 
-const Login = ({ users }) => {
+const Login = ({ users, setCurrentUser }) => {
   const navigate = useNavigate();
 
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-
-    const user = users.find(user => user.email === email && user.password === password);
+  const login = (values) => {
+    const user = users.find(user => user.email === values.email && user.password === values.password);
     if (user) {
       localStorage.setItem('currentUser', JSON.stringify(user));
+      setCurrentUser(user);
       navigate(`/profile/${user.id}`, { state: user });
     } else {
       navigate('/register');
@@ -24,11 +19,16 @@ const Login = ({ users }) => {
 
   return (
     <div className={styles.login}>
-      <form onSubmit={handleSubmit}>
-        <input type="email" placeholder="Email" ref={emailRef} className={styles.input} required />
-        <input type="password" placeholder="Password" ref={passwordRef} className={styles.input} required />
-        <button type="submit">Login</button>
-      </form>
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        onSubmit={login}
+      >
+        <Form>
+          <Field type="email" name="email" placeholder="Email" className={styles.input} />
+          <Field type="password" name="password" placeholder="Password" className={styles.input} />
+          <button type="submit">Login</button>
+        </Form>
+      </Formik>
     </div>
   );
 };

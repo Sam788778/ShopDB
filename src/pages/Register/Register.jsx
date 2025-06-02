@@ -3,7 +3,7 @@ import styles from './Register.module.css';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 
-const Register = ({ setUsers }) => {
+const Register = ({ setUsers}) => {
   const navigate = useNavigate();
 
   return (
