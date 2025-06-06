@@ -1,8 +1,12 @@
 import styles from './Nav.module.css';
 import { NavLink } from 'react-router-dom';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useContext } from 'react';
+import MyContext from '../../context/MyContext';
 
-const Nav = ({currentUser }) => {
+const Nav = () => {
+
+  const {currentUser } = useContext(MyContext)
+
   return (
     <div className={styles.nav}>
       <div>

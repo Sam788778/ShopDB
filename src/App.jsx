@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import Login from './pages/Login/Login.jsx';
 import Profile from './pages/Profile/Profile.jsx';
 import Register from './pages/Register/Register.jsx';
+import MyContext from './context/MyContext.js';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -67,16 +68,29 @@ function App() {
   }, [users]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Layout cart={cart} currentUser={currentUser} />}>
-        <Route index element={<Home products={products} addToCart={add} />} />
-        <Route path="/product/:id" element={<Product products={products} addToCart={add} />} />
-        <Route path="/cart" element={<Cart cart={cart} add={add} remove={remove} />} />
-        <Route path="/login" element={<Login users={users} setCurrentUser={setCurrentUser} />} />
-        <Route path="/register" element={<Register setUsers={setUsers} setCurrentUser={setCurrentUser} />} />
-        <Route path="/profile/:id" element={<Profile />} />
-      </Route>
-    </Routes>
+    <MyContext.Provider value={{
+      products,
+      setProducts,
+      users,
+      setUsers,
+      currentUser,
+      setCurrentUser,
+      cart,
+      setCart,
+      add,
+      remove
+    }}>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path='product/:id' element={<Product />} />
+          <Route path='cart' element={<Cart />} />
+          <Route path='login' element={<Login />} />
+          <Route path='profile' element={<Profile />} />
+          <Route path='register' element={<Register />} />
+        </Route>
+      </Routes>
+    </MyContext.Provider>
   );
 }
 

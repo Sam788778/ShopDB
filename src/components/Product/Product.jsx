@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import styles from './Product.module.css'
+import MyContext from '../../context/MyContext'
 
-const Product = ({ products, addToCart }) => {
+const Product = () => {
+
+  const { products, addToCart } = useContext(MyContext)
+
   const { id } = useParams()
   const product = products.find(p => p.id === parseInt(id))
 

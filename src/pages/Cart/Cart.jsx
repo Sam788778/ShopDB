@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from './Cart.module.css'
+import MyContext from '../../context/MyContext'
 
-const Cart = ({ cart, add, remove }) => {
+const Cart = () => {
+  const { cart, add, remove } = useContext(MyContext)
+
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
   return (

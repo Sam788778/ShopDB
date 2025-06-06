@@ -4,10 +4,10 @@ import Footer from '../Footer/Footer'
 import Nav from '../Nav/Nav'
 import React from 'react'
 
-const Layout = ({cart, currentUser }) => {
+const Layout = () => {
   return (
     <div className={styles.layout}>
-      <Nav cart={cart} currentUser={currentUser}/>
+      <Nav />
       <Outlet />
       <Footer />
     </div>

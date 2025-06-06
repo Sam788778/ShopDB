@@ -1,9 +1,11 @@
 import { Field, Form, Formik } from 'formik';
 import styles from './Register.module.css';
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
+import React, { useContext } from 'react';
+import MyContext from '../../context/MyContext';
 
-const Register = ({ setUsers}) => {
+const Register = () => {
+  const { setUsers} = useContext(MyContext)
   const navigate = useNavigate();
 
   return (

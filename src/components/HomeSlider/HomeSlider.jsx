@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from './HomeSlider.module.css'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
+import MyContext from '../../context/MyContext'
 
-const HomeSlider = ({ products }) => {
+const HomeSlider = () => {
+
+  const { products } = useContext(MyContext)
+
   const settings = {
     dots: true,
     infinite: true,

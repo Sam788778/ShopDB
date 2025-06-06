@@ -3,11 +3,11 @@ import styles from './Home.module.css'
 import HomeSlider from '../../components/HomeSlider/HomeSlider'
 import Products from '../../components/Products/Products'
 
-const Home = ({ products, addToCart }) => {
+const Home = () => {
   return (
     <div className={styles.home}>
-      <HomeSlider products={products} />
-      <Products products={products} addToCart={addToCart} />
+      <HomeSlider />
+      <Products />
     </div>
   )
 }
